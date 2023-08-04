@@ -5,6 +5,16 @@
     <title>E-Shops</title>
 </head>
 <body>
-    <h1>Hridoy kumar shil</h1>
+{% for Product in Products %}
+    <table>
+        <tr>
+            <td> : {{Product.Name}}</td>
+            <td> : {{Product.Price}}</td>
+            <td> : {{Product.Category}}</td>
+            <td> : {{Product.Description}}</td>
+            <td> : {{Product.Image}}</td>
+        </tr>
+    </table>
+{% endfor %}
 </body>
 </html>
