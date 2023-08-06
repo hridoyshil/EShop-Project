@@ -8,8 +8,9 @@
     <!-- filter -->
     <div class="col-lg-3 mx-auto">
       <div class="list-group">
-        {% for Category in Categorye %}
-        <a href="" class="list-group-item list-group-item-action">{{Category.Name}}</a>
+        <a href="/" class="list-group-item list-group-item-action">All Products</a>
+        {% for category in Categorye %}
+        <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">{{category.Name}}</a>
         {% endfor %}
       </div>
     </div>
@@ -17,13 +18,14 @@
 
 
     <!-- all Products -->
-    <div id="products" class="col-lg-8 mx-auto">
+    <div id="products" class="col-lg-9 mx-auto">
       <div class="row mx-auto">
         {% for Product in Products %}
-        <div class="card mx-auto mb-3" style="width: 18rem;">
+        <div class="card mx-auto mb-3"  style="width: 18rem;">
           <img src="{{Product.Image.url}}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{Product.Name}}</h5>
+            <p class="card-text">{{Product.Description}}</p>
             <p class="card-text">{{Product.Price}}</p>
             <a href="#" class="btn btn-light">Add To Card</a>
           </div>

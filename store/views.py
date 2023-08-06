@@ -8,10 +8,16 @@ from .models.category import Category
 
 
 def index(request):
-    Products = Product.get_all_products()
+    Products = None
     Categorye = Category.get_all_categories()
+    categoryID = request.GET.get("category")
+    if categoryID:
+        Products = Product.get_all_products_by_categoryid(categoryID)
+    else:
+        Products = Product.get_all_products()
+
     data = {}
-    data['Products'] = Products
-    data['Categorye'] = Categorye
+    data["Products"] = Products
+    data["Categorye"] = Categorye
     # return render(request, 'orders/order.html')
     return render(request, "index.html", data)
