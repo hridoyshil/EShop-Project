@@ -24,4 +24,4 @@ def index(request):
 
 
 def signup(request):
-    return render(request, 'request.html')
+    return render(request, 'signup.html')
