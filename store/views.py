@@ -21,3 +21,7 @@ def index(request):
     data["Categorye"] = Categorye
     # return render(request, 'orders/order.html')
     return render(request, "index.html", data)
+
+
+def signup(request):
+    return render(request, 'request.html')
