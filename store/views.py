@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.hashers import make_password,check_password
 from .models.product import Product
 from .models.category import Category
 from .models.customer import Customer
+
 
 
 # Create your views here.
@@ -72,7 +74,7 @@ def signup(request):
         # saving
         if not error_message:
             print(first_name, last_name, password, phone, email)
-
+            customer.password= make_password(customer.password)
             customer.register()
             # return render(request, 'index.html')
             # return redirect('http://localhost:8000')
