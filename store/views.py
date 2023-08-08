@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models.product import Product
 from .models.category import Category
@@ -70,7 +70,9 @@ def signup(request):
                                 email=email,
                                 password=password)
             customer.register()
-            return render(request, 'index.html')
+            # return render(request, 'index.html')
+            # return redirect('http://localhost:8000')
+            return redirect('homepage')
 
         else:
             date = {
