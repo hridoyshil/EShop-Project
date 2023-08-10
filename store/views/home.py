@@ -22,6 +22,7 @@ def index(request):
     data = {}
     data["Products"] = Products
     data["Categorye"] = Categorye
+    print('you are: ', request.session.get('email'))
     # return render(request, 'orders/order.html')
     return render(request, "index.html", data)
 
