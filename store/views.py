@@ -4,6 +4,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from .models.product import Product
 from .models.category import Category
 from .models.customer import Customer
+from django.views import View
 
 
 # Create your views here.
@@ -97,22 +98,44 @@ def signup(request):
         return registerUser(request)
 
 
-def login(request):
-    if request.method == 'GET':
-        return render(request,'login.html')
+# Class Based View login
+class Login(View):
+    def get(self, request):
+        return render(request, 'login.html')
 
-    else:
-        email= request.POST.get('email')
+    def post(self, request):
+        email = request.POST.get('email')
         password = request.POST.get('password')
         customer = Customer.get_customer_by_email(email)
         error_message = None
         if customer:
-            flaq = check_password(password, customer.password)
-            if flaq:
+            flag = check_password(password, customer.password)
+            if flag:
                 return redirect('homepage')
             else:
                 error_message = 'Email or password Invalid!!'
         else:
-           error_message = 'Email or password Invalid!!'
+            error_message = 'Email or password Invalid!!'
         print(email, password, customer)
         return render(request, 'login.html', {'error': error_message})
+
+# # Functions Based View login
+# def login(request):
+#     if request.method == 'GET':
+#         return render(request, 'login.html')
+#
+#     else:
+#         email = request.POST.get('email')
+#         password = request.POST.get('password')
+#         customer = Customer.get_customer_by_email(email)
+#         error_message = None
+#         if customer:
+#             flag = check_password(password, customer.password)
+#             if flag:
+#                 return redirect('homepage')
+#             else:
+#                 error_message = 'Email or password Invalid!!'
+#         else:
+#             error_message = 'Email or password Invalid!!'
+#         print(email, password, customer)
+#         return render(request, 'login.html', {'error': error_message})
