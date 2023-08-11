@@ -12,11 +12,15 @@ from django.views import View
 class Index(View):
     def post(self , request):
         productID = request.POST.get('product')
+        remove= request.POST.get('remove')
         cart = request.session.get('cart')
         if cart:
             quantity = cart.get(productID)
             if quantity:
-                cart[productID]= quantity+1
+                if remove:
+                    cart[productID]= quantity-1
+                else:
+                    cart[productID] = quantity + 1
             else:
                 cart[productID] = 1
         else:

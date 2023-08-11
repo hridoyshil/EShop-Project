@@ -35,9 +35,22 @@
           <div class="card-footer ">
             {% if Product|is_in_card:request.session.cart %}
             <div class="row no-gutters">
-              <input type="submit" value="-" class="col-2 btn btn-block btn-secondary">
-              <div class="text-center col">2 in Cart</div>
-              <input type="submit" value="+" class="col-2 btn btn-block btn-secondary">
+
+              <form action="/" method="post" class="col-2 ">
+                {% csrf_token %}
+                <input type="text" hidden name='product' value="{{Product.id}}">
+                <input type="text" hidden name='remove' value="True">
+                <input type="submit" value="-" class="btn btn-block btn-secondary">
+
+              </form>
+
+              <div class="text-center col">{{ Product|cart_quantity:request.session.cart }} in Cart</div>
+
+              <form action="/" method="post" class="col-2 ">
+                {% csrf_token %}
+                <input type="submit" value="+" class="btn btn-block btn-secondary">
+                <input type="text" hidden name='product' value="{{Product.id}}">
+              </form>
             </div>
 
             {% else %}
