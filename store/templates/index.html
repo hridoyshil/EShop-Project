@@ -21,13 +21,23 @@
     <div id="products" class="col-lg-9 mx-auto">
       <div class="row mx-auto">
         {% for Product in Products %}
-        <div class="card mx-auto mb-3"  style="width: 18rem;">
+        <div class="card mx-auto mb-3" style="width: 18rem;">
           <img src="{{Product.Image.url}}" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">{{Product.Name}}</h5>
             <p class="card-text">{{Product.Description}}</p>
             <p class="card-text">{{Product.Price}}</p>
-            <a href="#" class="btn btn-light">Add To Card</a>
+
+            <form action="/" method="POST">
+              {% csrf_token %}
+              <input type="text" hidden name='product' value="{{Product.id}}">
+              <input type="submit" class="btn btn-light" value="Add To Card">
+
+            </form>
+
+
+
+
           </div>
         </div>
         {% endfor %}
