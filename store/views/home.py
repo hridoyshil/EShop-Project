@@ -18,7 +18,10 @@ class Index(View):
             quantity = cart.get(productID)
             if quantity:
                 if remove:
-                    cart[productID]= quantity-1
+                    if quantity<=1:
+                        cart.pop(productID)
+                    else:
+                        cart[productID]= quantity-1
                 else:
                     cart[productID] = quantity + 1
             else:
@@ -31,7 +34,11 @@ class Index(View):
         print('cart' , request.session['cart'])
         return redirect('homepage')
 
-    def get(self, request): 
+    def get(self, request):
+        cart = request.session.get('cart')
+        if not cart:
+            request.session['cart']= {}
+
         Products = None
         Categorye = Category.get_all_categories()
         categoryID = request.GET.get("category")
