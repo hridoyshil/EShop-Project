@@ -10,13 +10,24 @@ from django.views import View
 # Create your views here.
 
 class Index(View):
-    def post(self, request):
-        product = request.POST.get('product')
-        print(product)
+    def post(self , request):
+        productID = request.POST.get('product')
+        cart = request.session.get('cart')
+        if cart:
+            quantity = cart.get(productID)
+            if quantity:
+                cart[productID]= quantity+1
+            else:
+                cart[productID] = 1
+        else:
+            cart = {}
+            cart[productID] = 1
+
+        request.session['cart'] = cart
+        print('cart' , request.session['cart'])
         return redirect('homepage')
 
-
-    def get(self, request):
+    def get(self, request): 
         Products = None
         Categorye = Category.get_all_categories()
         categoryID = request.GET.get("category")
@@ -31,8 +42,6 @@ class Index(View):
         print('you are: ', request.session.get('email'))
         # return render(request, 'orders/order.html')
         return render(request, "index.html", data)
-
-
 
 # def index(request):
 #     Products = None
@@ -49,11 +58,3 @@ class Index(View):
 #     print('you are: ', request.session.get('email'))
 #     # return render(request, 'orders/order.html')
 #     return render(request, "index.html", data)
-
-
-
-
-
-
-
-
