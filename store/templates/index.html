@@ -30,21 +30,23 @@
             <p class="card-text">{{Product.Price}}</p>
 
             {{Product | is_in_card:request.session.cart }}
+          </div>
 
-            <form action="/" method="POST">
+          <div class="row no-gutters">
+            <form action="/" method="POST" class="btn-block">
               {% csrf_token %}
               <input type="text" hidden name='product' value="{{Product.id}}">
-              <input class="float-right" type="submit" class="btn btn-light" value="Add To Card">
+              <input type="submit" class="float-right btn btn-light border form-control" value="Add To Cart">
 
             </form>
 
+            <div class="row" hidden>
+              <input type="submit" value="-" class="col-2 btn btn-block btn-secondary">
+              <div class="text-center col">2 in Cart</div>
+              <input type="submit" value="+" class="col-2 btn btn-block btn-secondary">
+            </div>
+          </div>
 
-          </div>
-          <div class="card-footer  row no-gutters">
-            <input type="submit" value="-" class="col-2 btn btn-block btn-secondary">
-            <div class="text-center col">2 in Cart</div>
-            <input type="submit" value="+" class="col-2 btn btn-block btn-secondary">
-          </div>
         </div>
         {% endfor %}
       </div>
