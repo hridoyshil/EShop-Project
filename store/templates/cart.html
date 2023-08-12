@@ -2,7 +2,48 @@
 
 
 {% block content%}
+{% load card %}
 <div class="container">
-    <h1>Card page</h1>
+    <div class="border rounded p-4 m-4">
+        <p class="display-4 pl-4 ml-4"><b>Your Cart</b></p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sno.</th>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td><img style="height: 50px;" class="rounded-circle" src="{{product.Image.url}}" alt=""></td>
+                    <td>{{product.Name}}</td>
+                    <td>{{product.Price}}</td>
+                    <td>{{product|cart_quantity:request.session.cart}}</td>
+                    <td>{{product|price_total:request.session.cart}}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <!-- <th class="text-center" colspan="4">Total = </th> -->
+                    <th colspan="3"></th>
+                    <th class="" colspan="">Total = </th>
+                    <th>{{products|total_cart_price:request.session.cart}}</th>
+                </tr>
+            </tfoot>
+
+        </table>
+        <div class="m-3 p-3">
+            <a href="" class="btn btn-outline-info border rounded col-lg-3 float-right"><b>Check Out</b></a>
+        </div>
+    </div>
 </div>
 {% endblock %}

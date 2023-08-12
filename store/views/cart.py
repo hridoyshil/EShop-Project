@@ -10,6 +10,6 @@ from django.views import View
 class Cart(View):
     def get(self, request):
         ids= list(request.session.get('cart').keys())
-        product = Product.get_products_by_id(ids)
-        print(product)
-        return render(request, 'cart.html')
+        products = Product.get_products_by_id(ids)
+        print(products)
+        return render(request, 'cart.html', {'products': products})
