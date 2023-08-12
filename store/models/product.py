@@ -9,6 +9,9 @@ class Product(models.Model):
     Description = models.CharField(max_length=200, default='', null=True, blank=True)
     Image = models.ImageField(upload_to='uploads/products/')
 
+    @staticmethod
+    def get_products_by_id(ids):
+        return Product.objects.filter(id__in=ids)
 
     @staticmethod
     def get_all_products():
