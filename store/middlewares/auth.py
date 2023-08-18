@@ -1,6 +1,7 @@
 from django.shortcuts import redirect
 
 
+
 def auth_middleware(get_response):
     def middleware(request):
         print(request.session.get('customer'))
